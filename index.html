@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f1e8">
+<title>Fiona, hear me out ♡</title>
+
+<style>
+  :root {
+    --paper: #f7f1e8;
+    --ink: #40312f;
+    --red: #ad3546;
+    --muted: #85736d;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: Arial, sans-serif;
+  }
+
+  button { font: inherit; cursor: pointer; }
+  button:focus-visible {
+    outline: 3px solid var(--red);
+    outline-offset: 5px;
+  }
+
+  header {
+    padding: 25px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #dfd2c5;
+    gap: 20px;
+  }
+
+  .brand {
+    font: italic 23px Georgia, serif;
+    color: var(--red);
+  }
+
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  header .eyebrow { color: var(--muted); }
+
+  main { max-width: 1120px; margin: auto; }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    gap: 65px;
+    padding: 70px 35px;
+  }
+
+  .label { color: var(--red); }
+
+  h1 {
+    font: normal clamp(48px, 6vw, 78px)/1.06 Georgia, serif;
+    letter-spacing: -3px;
+    margin: 25px 0;
+  }
+
+  h1 em { color: var(--red); }
+
+  .intro {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.9;
+    max-width: 380px;
+  }
+
+  .signature {
+    color: var(--red);
+    font: italic 23px Georgia, serif;
+    margin-top: 28px;
+  }
+
+  .letter-wrap { position: relative; padding: 20px; }
+
+  .letter {
+    position: relative;
+    background: #fffdf8;
+    padding: 35px;
+    transform: rotate(5deg);
+    box-shadow: 0 15px 45px #5d34251c;
+    border: 1px solid #e8ded1;
+  }
+
+  .letter::before {
+    content: "";
+    position: absolute;
+    top: -13px;
+    left: calc(50% - 45px);
+    height: 28px;
+    width: 90px;
+    background: #dfc8a99c;
+    transform: rotate(-7deg);
+  }
+
+  .letter h2 { font: italic 30px Georgia, serif; }
+  .letter p {
+    font: 15px/1.9 Georgia, serif;
+    color: var(--muted);
+  }
+
+  .letter .signed {
+    color: var(--red);
+    font: italic 26px Georgia, serif;
+  }
+
+  .scribble {
+    text-align: right;
+    color: var(--red);
+    font: italic 17px Georgia, serif;
+    margin-top: 30px;
+    transform: rotate(-6deg);
+  }
+
+  .question {
+    text-align: center;
+    border-top: 1px solid #dfd2c5;
+    padding: 42px 20px;
+    margin: 0 35px;
+  }
+
+  .question h2 {
+    font: normal clamp(35px, 4.5vw, 53px)/1.15 Georgia, serif;
+    letter-spacing: -1.5px;
+    margin: 18px 0;
+  }
+
+  .question p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 28px 0 20px;
+    min-height: 53px;
+  }
+
+  .yes, .no {
+    padding: 16px 25px;
+    border-radius: 5px;
+    min-width: 140px;
+    font-size: 13px;
+  }
+
+  .yes {
+    color: white;
+    background: var(--red);
+    border: 1px solid var(--red);
+    box-shadow: 0 4px 0 #852535;
+    transition: background .2s;
+  }
+
+  .yes:hover { background: #922a3a; }
+
+  .no {
+    background: #fffaf3;
+    color: #76665e;
+    border: 1px solid #d8c9b9;
+    z-index: 20;
+    touch-action: none;
+  }
+
+  #note {
+    min-height: 24px;
+    font: italic 13px/1.7 Georgia, serif;
+  }
+
+  .perks {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    padding: 30px 0;
+    margin: 0 35px;
+    border-top: 1px solid #dfd2c5;
+  }
+
+  .perk strong { font: 18px Georgia, serif; }
+  .perk span { color: var(--red); margin-right: 8px; }
+  .perk p { font-size: 12px; color: var(--muted); line-height: 1.8; }
+
+  footer {
+    max-width: 1050px;
+    margin: 0 auto;
+    border-top: 1px solid #dfd2c5;
+    padding: 25px 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    color: var(--muted);
+    font-size: 10px;
+  }
+
+  .text-button {
+    border: none;
+    background: none;
+    color: inherit;
+    font-size: 11px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  dialog {
+    width: min(480px, calc(100% - 35px));
+    padding: 45px 30px;
+    border: 1px solid #dfd2c5;
+    border-radius: 10px;
+    background: #fffaf2;
+    color: var(--ink);
+    text-align: center;
+    box-shadow: 0 25px 100px #40232b40;
+  }
+
+  dialog::backdrop {
+    background: #40232b70;
+    backdrop-filter: blur(6px);
+  }
+
+  dialog h2 { font: 43px/1.1 Georgia, serif; margin: 20px 0; }
+  dialog p { color: var(--muted); font-size: 14px; line-height: 1.9; }
+  .big-heart { color: var(--red); font-size: 65px; }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 26px;
+  }
+
+  .confetti {
+    position: fixed;
+    top: -35px;
+    pointer-events: none;
+    z-index: 100;
+    animation: fall var(--duration) linear forwards;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translate(var(--drift), 110vh) rotate(600deg);
+      opacity: 0;
+    }
+  }
+
+  @media (max-width: 700px) {
+    header { padding: 22px 6%; }
+    header .eyebrow { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 45px 8%; gap: 30px; }
+    h1 { letter-spacing: -2px; }
+    .letter-wrap { max-width: 370px; width: 100%; margin: auto; }
+    .letter { padding: 28px; }
+    .question { margin: 0 8%; padding: 35px 0; }
+    .perks { grid-template-columns: 1fr; margin: 0 8%; gap: 15px; }
+    .perk p { margin: 8px 0; }
+    footer { margin: 0 8%; line-height: 1.8; }
+    .yes, .no { min-width: 120px; padding: 16px 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+    .confetti { display: none; }
+  }
+</style>
+</head>
+
+<body>
+<header>
+  <span class="brand">a little something for you ♡</span>
+  <span class="eyebrow">One girl. One very big question.</span>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow label">Exclusively for my favorite person</div>
+      <h1>Fiona Kate<br>Vanmatre,<br><em>hear me out.</em></h1>
+      <p class="intro">
+        I could’ve just sent a text.<br>
+        But you deserve a whole website and a slightly unreasonable
+        amount of effort.
+      </p>
+      <p class="signature">With like (and a plan), Sid</p>
+    </div>
+
+    <div class="letter-wrap">
+      <article class="letter">
+        <div class="eyebrow">A very serious like letter</div>
+        <h2>Dear ma’am,</h2>
+        <p>
+          After extensive research, careful consideration,
+          and absolutely zero chill…
+        </p>
+        <p>
+          I’ve come to the conclusion that you’re my favorite
+          person to be a little ridiculous with.
+        </p>
+        <p class="signed">Officially, we’re likers. ♡</p>
+      </article>
+      <div class="scribble">yes, I made you a website ↖</div>
+    </div>
+  </section>
+
+  <section class="question">
+    <div class="eyebrow label">The very important part</div>
+    <h2 id="questionTitle">Will you be my girlfriend?</h2>
+    <p id="subtitle">
+      Yes, you’re already my girlfriend. We’re still calling ourselves likers.<br>
+      This is just the unnecessarily official paperwork.
+    </p>
+
+    <div class="buttons">
+      <button class="yes" id="yes">Yes, obviously ♡</button>
+      <button class="no" id="no">No, thank you</button>
+    </div>
+
+    <p id="note" aria-live="polite">
+      The “No” button has commitment issues. Just a heads-up.
+    </p>
+  </section>
+
+  <section class="perks" aria-label="The girlfriend benefits package">
+    <div class="perk">
+      <strong><span>✧</span>Premium-level silliness</strong>
+      <p>Bad jokes. Excellent company.<br>A questionable sense of humor.</p>
+    </div>
+    <div class="perk">
+      <strong><span>♡</span>Your biggest fan</strong>
+      <p>Someone in your corner.<br>Even on the completely ordinary days.</p>
+    </div>
+    <div class="perk">
+      <strong><span>☾</span>Side quests, together</strong>
+      <p>Snack runs. Long conversations.<br>Making little things a whole thing.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>MADE WITH LIKE & A SUSPICIOUS AMOUNT OF EFFORT</span>
+  <button class="text-button" id="finePrint">Read the fine print</button>
+</footer>
+
+<dialog id="celebration" aria-labelledby="celebrationTitle">
+  <button class="close" aria-label="Close celebration">×</button>
+  <div class="big-heart" aria-hidden="true">♡</div>
+  <div class="eyebrow label">Certified likers.</div>
+  <h2 id="celebrationTitle">Oh, we’re so<br>doing this.</h2>
+  <p>
+    Fiona Kate Vanmatre,<br>
+    you’ve officially made Sid’s day.<br>
+    Possibly his entire personality.
+  </p>
+  <p><em>Now please collect your boyfriend.<br>He’s smiling at his screen.</em></p>
+  <button class="yes" id="moreHearts">More happy little hearts ♡</button>
+</dialog>
+
+<dialog id="terms" aria-labelledby="termsTitle">
+  <button class="close" aria-label="Close fine print">×</button>
+  <div class="eyebrow label">The small print</div>
+  <h2 id="termsTitle">No legal team.<br>Just a lot of like.</h2>
+  <p>
+    Relationship status: girlfriend and boyfriend.<br>
+    Official terminology: likers.<br>
+    Level of effort: slightly excessive.
+  </p>
+  <p>
+    This is a silly like letter, not a binding contract.
+    The button runs for comedic purposes only.
+    Your actual answer is always yours.
+  </p>
+  <button class="yes" id="back">Back to the big question</button>
+</dialog>
+
+<script>
+  const no = document.getElementById("no");
+  const yes = document.getElementById("yes");
+  const note = document.getElementById("note");
+  const celebration = document.getElementById("celebration");
+  const terms = document.getElementById("terms");
+
+  let attempts = 0;
+  let lastEscape = 0;
+  let accepted = false;
+
+  const excuses = [
+    "Wait—let me just move over here.",
+    "That button just remembered it has somewhere to be.",
+    "It’s training for a marathon.",
+    "You’re persistent. Respectfully, so is this button.",
+    "Plot twist: the button is shy.",
+    "It has left the group chat.",
+    "The “Yes” button would never treat you like this."
+  ];
+
+  function escapeButton(event) {
+    if (accepted) return;
+    if (event?.cancelable) event.preventDefault();
+
+    const now = Date.now();
+    if (now - lastEscape < 200) return;
+    lastEscape = now;
+
+    // Set the label first so the new button width is accounted for.
+    no.textContent = [
+      "Nice try!",
+      "Can’t catch me",
+      "Not today ♡",
+      "Still no?"
+    ][attempts % 4];
+
+    const rect = no.getBoundingClientRect();
+    const yesRect = yes.getBoundingClientRect();
+    const width = document.documentElement.clientWidth;
+    const height = window.innerHeight;
+    const padding = 12;
+
+    let best = { x: padding, y: padding, score: -Infinity };
+
+    // Choose a distant, on-screen location that avoids the Yes button.
+    for (let i = 0; i < 60; i++) {
+      const x = padding + Math.random() *
+        Math.max(0, width - rect.width - padding * 2);
+
+      const y = padding + Math.random() *
+        Math.max(0, height - rect.height - padding * 2);
+
+      const overlapsYes =
+        x < yesRect.right + 20 &&
+        x + rect.width > yesRect.left - 20 &&
+        y < yesRect.bottom + 20 &&
+        y + rect.height > yesRect.top - 20;
+
+      if (overlapsYes) continue;
+
+      const score = Math.hypot(x - rect.left, y - rect.top);
+      if (score > best.score) best = { x, y, score };
+    }
+
+    no.style.position = "fixed";
+    no.style.left = `${best.x}px`;
+    no.style.top = `${best.y}px`;
+    note.textContent = excuses[attempts % excuses.length];
+    attempts++;
+  }
+
+  no.addEventListener("pointerenter", event => {
+    if (event.pointerType === "mouse") escapeButton(event);
+  });
+
+  no.addEventListener("pointerdown", escapeButton);
+  no.addEventListener("click", escapeButton);
+
+  window.addEventListener("resize", () => {
+    no.style.position = "";
+    no.style.left = "";
+    no.style.top = "";
+  });
+
+  function hearts() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    // Put hearts inside the open dialog so they appear above its backdrop.
+    const container = celebration.open ? celebration : document.body;
+
+    for (let i = 0; i < 45; i++) {
+      const heart = document.createElement("span");
+      heart.className = "confetti";
+      heart.setAttribute("aria-hidden", "true");
+      heart.textContent = i % 3 ? "♥" : "✦";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = 12 + Math.random() * 22 + "px";
+      heart.style.color = ["#ad3546", "#dc939d", "#bea075"][i % 3];
+      heart.style.setProperty("--duration", 2.5 + Math.random() * 2 + "s");
+      heart.style.setProperty("--drift", (Math.random() - .5) * 220 + "px");
+      heart.style.animationDelay = Math.random() * .5 + "s";
+      container.appendChild(heart);
+      setTimeout(() => heart.remove(), 5500);
+    }
+  }
+
+  yes.addEventListener("click", () => {
+    accepted = true;
+    no.hidden = true;
+
+    document.getElementById("questionTitle").textContent =
+      "My favorite answer. My favorite girl.";
+
+    document.getElementById("subtitle").textContent =
+      "Fiona + Sid. Girlfriend and boyfriend. Certified likers.";
+
+    note.textContent = "The “No” button has retired. It had a good run.";
+    yes.textContent = "Relive the moment ♡";
+
+    celebration.showModal();
+    hearts();
+  });
+
+  document.getElementById("moreHearts").addEventListener("click", hearts);
+  document.getElementById("finePrint").addEventListener("click", () => {
+    terms.showModal();
+  });
+  document.getElementById("back").addEventListener("click", () => {
+    terms.close();
+  });
+
+  document.querySelectorAll("dialog .close").forEach(button => {
+    button.addEventListener("click", () => button.closest("dialog").close());
+  });
+
+  document.querySelectorAll("dialog").forEach(dialog => {
+    dialog.addEventListener("click", event => {
+      if (event.target !== dialog) return;
+
+      const rect = dialog.getBoundingClientRect();
+      const outside =
+        event.clientX < rect.left || event.clientX > rect.right ||
+        event.clientY < rect.top || event.clientY > rect.bottom;
+
+      if (outside) dialog.close();
+    });
+  });
+</script>
+</body>
+</html>
